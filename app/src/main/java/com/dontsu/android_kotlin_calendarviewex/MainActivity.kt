@@ -13,8 +13,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        calendarView.minDate = Date().time //오늘날짜포함 이후로 선택가능, 최소날짜
+        setMinDate()
 
+        getToday()
+    }
+
+    private fun getToday() {
         val timeZone = TimeZone.getTimeZone("Asia/Seoul")
         val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd")
         simpleDateFormat.timeZone.id = timeZone.toString()
@@ -28,6 +32,9 @@ class MainActivity : AppCompatActivity() {
         val date2 = simpleDateFormat.format(timestamp)
         //Toast.makeText(this, "$date", Toast.LENGTH_SHORT).show()
         Toast.makeText(this, "$date2", Toast.LENGTH_SHORT).show()
+    }
 
+    private fun setMinDate() {
+        calendarView.minDate = Date().time //오늘날짜포함 이후로 선택가능, 최소날짜
     }
 }
