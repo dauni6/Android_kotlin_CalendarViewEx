@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         val today = Calendar.getInstance().time
         val date = SimpleDateFormat("dd/mm/yyyy")
 
-        calendarView.minDate = 5052020
+        calendarView.minDate = Date().time //오늘기준으로 선택가능, 최소날짜
 
     }
 }
