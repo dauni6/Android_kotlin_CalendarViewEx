@@ -13,10 +13,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val today = Calendar.getInstance().time
-        val date = SimpleDateFormat("dd/mm/yyyy")
+        calendarView.minDate = Date().time //오늘날짜포함 이후로 선택가능, 최소날짜
 
-        calendarView.minDate = Date().time //오늘기준으로 선택가능, 최소날짜
+        val timeZone = TimeZone.getTimeZone("Asia/Seoul")
+        val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd")
+        simpleDateFormat.timeZone.id = timeZone.toString()
+
+        //날짜얻기 방법1 : Calendar.getInstance().time
+        val cal = Calendar.getInstance().time
+        //날짜얻기 방법2 : calendarView.date
+        val timestamp = calendarView.date
+
+        val date = simpleDateFormat.format(cal)
+        val date2 = simpleDateFormat.format(timestamp)
+        //Toast.makeText(this, "$date", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "$date2", Toast.LENGTH_SHORT).show()
 
     }
 }
