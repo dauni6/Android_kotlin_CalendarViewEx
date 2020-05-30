@@ -72,9 +72,15 @@ class MainActivity : AppCompatActivity() {
         while (true) {
             if (count == 1 ) break
             if (presentDay == daysOfMonth) { //현재날짜가 그 달의 일수와 같다면
-                presentMonth += 1
-                presentDay = 1 //1일로 초기화
-                daysOfMonth = mDays[isLeap(presentYear)][presentMonth - 1]
+                if (presentMonth == 12 && presentDay == 31) { // 12월 31일 이라면
+                    presentYear += 1 //1년 추가
+                    presentMonth = 1 //1월달로 초기화
+                    presentDay = 1 //1일로 초기화
+                } else {
+                    presentMonth += 1 //한달 추가
+                    presentDay = 1 //1일로 초기화
+                    daysOfMonth = mDays[isLeap(presentYear)][presentMonth - 1]
+                }
             } else {
                 presentDay += 1
             }
