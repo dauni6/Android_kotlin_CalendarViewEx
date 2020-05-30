@@ -67,19 +67,18 @@ class MainActivity : AppCompatActivity() {
         mDays.add(normalYear)
         mDays.add(leapYear)
         var daysOfMonth = mDays[isLeap(presentYear)][month] //그 달의 일수
-        //현재 날짜에서 계속 ++ 하는데 현재날짜 >= daysOfMonth 이면 다음 달로 넘어가서 계속 구하기
 
         while (true) {
             if (count == 1 ) break
             if (presentDay == daysOfMonth) { //현재날짜가 그 달의 일수와 같다면
-                if (presentMonth == 12 && presentDay == 31) { // 12월 31일 이라면
+                if (presentMonth == 12 && presentDay == 31) { //그 해 12월 31일 이라서 해가 넘어간다면
                     presentYear += 1 //1년 추가
                     presentMonth = 1 //1월달로 초기화
                     presentDay = 1 //1일로 초기화
-                } else {
+                } else { //맥시멈 12월 30일일 까지라면
                     presentMonth += 1 //한달 추가
                     presentDay = 1 //1일로 초기화
-                    daysOfMonth = mDays[isLeap(presentYear)][presentMonth - 1]
+                    daysOfMonth = mDays[isLeap(presentYear)][presentMonth - 1] //달 일수 바꿔주기
                 }
             } else {
                 presentDay += 1
