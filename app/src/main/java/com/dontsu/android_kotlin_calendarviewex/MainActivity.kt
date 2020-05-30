@@ -2,6 +2,7 @@ package com.dontsu.android_kotlin_calendarviewex
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         val date = simpleDateFormat.format(cal)
         val date2 = simpleDateFormat.format(timestamp)
         //Toast.makeText(this, "$date", Toast.LENGTH_SHORT).show()
-        Toast.makeText(this, "$date2", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "$date2", Toast.LENGTH_SHORT).show()
     }
 
     private fun setMinDate() {
@@ -57,37 +58,37 @@ class MainActivity : AppCompatActivity() {
     private fun manipulateDate(year: Int, month: Int, day: Int) {
 
         var presentDay = day
+        var presentMonth = month + 1
+        var presentYear = year
         var count = 60
         val mDays = ArrayList<ArrayList<Int>>()
         val normalYear = arrayListOf(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31) //평년
         val leapYear = arrayListOf(31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31) //윤년
         mDays.add(normalYear)
         mDays.add(leapYear)
-        val daysOfMonth = mDays[isLeap(year)][month - 1] //그 달의 일수
+        var daysOfMonth = mDays[isLeap(presentYear)][month] //그 달의 일수
         //현재 날짜에서 계속 ++ 하는데 현재날짜 >= daysOfMonth 이면 다음 달로 넘어가서 계속 구하기
 
         while (true) {
-            if (count == 0 ) return
-            if (day >= daysOfMonth) {
-                //다음달로 넘어가고 계속 더하기
-                //month + 1
-                if (month >= 12) {
-                    //12월 31일을 넘기면 1년 더하기
-                    //year + 1
-                }
+            if (count == 1 ) break
+            if (presentDay == daysOfMonth) { //현재날짜가 그 달의 일수와 같다면
+                presentMonth += 1
+                presentDay = 1 //1일로 초기화
+                daysOfMonth = mDays[isLeap(presentYear)][presentMonth - 1]
             } else {
-                //날짜 + 하기
-                presentDay ++
+                presentDay += 1
             }
             count--
         }
 
+     Toast.makeText(this, "$presentYear 년 $presentMonth 월 $presentDay 일", Toast.LENGTH_SHORT).show()
+
     }
 
     private fun isLeap(year: Int): Int { //윤년 : 1 , 평년 : 0
-        if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)
+        if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
             return 1
-
+        }
         return 0
     }
 }
