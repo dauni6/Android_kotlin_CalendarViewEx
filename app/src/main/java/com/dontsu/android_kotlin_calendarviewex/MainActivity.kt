@@ -1,8 +1,10 @@
 package com.dontsu.android_kotlin_calendarviewex
 
+import android.app.DatePickerDialog
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.DatePicker
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
@@ -14,15 +16,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         setMinDate() //최소날짜
 
         setMaxDate() //최대날짜
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            datePicker.setOnDateChangedListener { view, year, monthOfYear, dayOfMonth ->
-                Toast.makeText(this, "선택날짜 : $year 년 ${monthOfYear + 1} 월 $dayOfMonth 일", Toast.LENGTH_SHORT).show()
+            datePicker.setOnDateChangeListener { view, year, month, dayOfMonth ->
+                Toast.makeText(this, "선택날짜 : $year 년 ${month + 1} 월 $dayOfMonth 일", Toast.LENGTH_SHORT).show()
             }
         }
     }
