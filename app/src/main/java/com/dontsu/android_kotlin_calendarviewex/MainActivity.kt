@@ -1,11 +1,10 @@
 package com.dontsu.android_kotlin_calendarviewex
 
-import android.app.DatePickerDialog
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.DatePicker
 import android.widget.Toast
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -19,13 +18,12 @@ class MainActivity : AppCompatActivity() {
         setMinDate() //최소날짜
 
         setMaxDate() //최대날짜
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            datePicker.setOnDateChangeListener { view, year, month, dayOfMonth ->
+        
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
                 Toast.makeText(this, "선택날짜 : $year 년 ${month + 1} 월 $dayOfMonth 일", Toast.LENGTH_SHORT).show()
             }
-        }
+        }*/
     }
 
     /*private fun getToday() {
@@ -45,8 +43,8 @@ class MainActivity : AppCompatActivity() {
     }*/
 
     private fun setMinDate() {
-        datePicker.minDate = Date().time //오늘날짜포함 이후로 선택가능, 최소날짜 Milliseconds 단위로만 설정가능함
-    }
+        calendarView.state().edit().setMinimumDate(CalendarDay.from(2020, 5, 31)).commit()//오늘날짜포함 이후로 선택가능, 최소날짜 Milliseconds 단위로만 설정가능함
+}
 
     private fun setMaxDate() {
         //현재 년, 월, 일
@@ -54,14 +52,11 @@ class MainActivity : AppCompatActivity() {
         val month = Calendar.getInstance().get(Calendar.MONTH)
         val day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
 
-        val maxDay = manipulateDate(year, month, day)
+        val maxDay = manipulateDate(year, month, day) //최대 60일 이후까지만 선택 가능하도록 날짜조정
         val result = toMilliseconds(maxDay)
-        datePicker.maxDate = result.time //최대 날짜 설정, 최대날짜 까지 선택가능
+        calendarView.state().edit().setMaximumDate(CalendarDay.from(2020, 7, 28)).commit() //최대 날짜 설정, 최대날짜 까지 선택가능
     }
 
- /**
-  *  +60일한 날짜를 구하기
-  * **/
     private fun manipulateDate(year: Int, month: Int, day: Int): String {
 
         var presentDay = day
