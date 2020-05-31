@@ -15,11 +15,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setMinDate()
+        setMinDate() //최소날짜
 
         getToday()
 
-        setMaxDate()
+        setMaxDate() //최대날짜
     }
 
     private fun getToday() {
@@ -86,8 +86,11 @@ class MainActivity : AppCompatActivity() {
             count--
         }
 
-     Toast.makeText(this, "$presentYear 년 $presentMonth 월 $presentDay 일", Toast.LENGTH_SHORT).show()
+     Log.d("dayCheck", "$presentYear 년 $presentMonth 월 $presentDay 일")
 
+     val maxDay = "${presentYear}.${presentMonth}.${presentDay}"
+     val result = toMilliseconds(maxDay)
+     calendarView.maxDate = result.time //최대 날짜 선택
     }
 
     private fun isLeap(year: Int): Int { //윤년 : 1 , 평년 : 0
@@ -95,5 +98,14 @@ class MainActivity : AppCompatActivity() {
             return 1
         }
         return 0
+    }
+
+    private fun toMilliseconds(str: String): Date {
+        val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd")
+        val date = simpleDateFormat.parse(str) //Milliseconds 단위로 바꿈
+       /* val result = simpleDateFormat.format(date)
+        Log.d("millisecondsCheck", "$result")*/
+
+        return date
     }
 }
