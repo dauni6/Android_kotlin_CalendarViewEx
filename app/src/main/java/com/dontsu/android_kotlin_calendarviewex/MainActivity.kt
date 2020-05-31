@@ -2,8 +2,6 @@ package com.dontsu.android_kotlin_calendarviewex
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -48,14 +46,16 @@ class MainActivity : AppCompatActivity() {
         val month = Calendar.getInstance().get(Calendar.MONTH)
         val day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
 
-        manipulateDate(year, month, day)
+        val maxDay = manipulateDate(year, month, day)
+        val result = toMilliseconds(maxDay)
+        calendarView.maxDate = result.time //최대 날짜 선택
 
     }
 
  /**
   *  +60일한 날짜를 구하기
   * **/
-    private fun manipulateDate(year: Int, month: Int, day: Int) {
+    private fun manipulateDate(year: Int, month: Int, day: Int): String {
 
         var presentDay = day
         var presentMonth = month + 1
@@ -86,11 +86,9 @@ class MainActivity : AppCompatActivity() {
             count--
         }
 
-     Log.d("dayCheck", "$presentYear 년 $presentMonth 월 $presentDay 일")
+     //Log.d("dayCheck", "$presentYear 년 $presentMonth 월 $presentDay 일")
 
-     val maxDay = "${presentYear}.${presentMonth}.${presentDay}"
-     val result = toMilliseconds(maxDay)
-     calendarView.maxDate = result.time //최대 날짜 선택
+     return "${presentYear}.${presentMonth}.${presentDay}"
     }
 
     private fun isLeap(year: Int): Int { //윤년 : 1 , 평년 : 0
@@ -100,12 +98,6 @@ class MainActivity : AppCompatActivity() {
         return 0
     }
 
-    private fun toMilliseconds(str: String): Date {
-        val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd")
-        val date = simpleDateFormat.parse(str) //Milliseconds 단위로 바꿈
-       /* val result = simpleDateFormat.format(date)
-        Log.d("millisecondsCheck", "$result")*/
+    private fun toMilliseconds(str: String): Date = SimpleDateFormat("yyyy.MM.dd").parse(str) //Milliseconds 단위로 바꿈
 
-        return date
-    }
 }
