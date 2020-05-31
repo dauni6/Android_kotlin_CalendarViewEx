@@ -1,5 +1,6 @@
 package com.dontsu.android_kotlin_calendarviewex
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -19,12 +20,14 @@ class MainActivity : AppCompatActivity() {
         setMaxDate() //최대날짜
 
 
-        calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            Toast.makeText(this, "선택날짜 : $year 년 ${month + 1} 월 $dayOfMonth 일", Toast.LENGTH_SHORT).show()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            datePicker.setOnDateChangedListener { view, year, monthOfYear, dayOfMonth ->
+                Toast.makeText(this, "선택날짜 : $year 년 ${monthOfYear + 1} 월 $dayOfMonth 일", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
-    private fun getToday() {
+    /*private fun getToday() {
         val timeZone = TimeZone.getTimeZone("Asia/Seoul")
         val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd")
         simpleDateFormat.timeZone.id = timeZone.toString()
@@ -38,10 +41,10 @@ class MainActivity : AppCompatActivity() {
         val date2 = simpleDateFormat.format(timestamp)
         //Toast.makeText(this, "$date", Toast.LENGTH_SHORT).show()
         //Toast.makeText(this, "$date2", Toast.LENGTH_SHORT).show()
-    }
+    }*/
 
     private fun setMinDate() {
-        calendarView.minDate = Date().time //오늘날짜포함 이후로 선택가능, 최소날짜 Milliseconds 단위로만 설정가능함
+        datePicker.minDate = Date().time //오늘날짜포함 이후로 선택가능, 최소날짜 Milliseconds 단위로만 설정가능함
     }
 
     private fun setMaxDate() {
@@ -52,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         val maxDay = manipulateDate(year, month, day)
         val result = toMilliseconds(maxDay)
-        calendarView.maxDate = result.time //최대 날짜 설정, 최대날짜 까지 선택가능
+        datePicker.maxDate = result.time //최대 날짜 설정, 최대날짜 까지 선택가능
     }
 
  /**
