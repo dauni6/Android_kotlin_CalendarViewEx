@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setMinDate() {
-        calendarView.minDate = Date().time //오늘날짜포함 이후로 선택가능, 최소날짜
+        calendarView.minDate = Date().time //오늘날짜포함 이후로 선택가능, 최소날짜 Milliseconds 단위로만 설정가능함
     }
 
     private fun setMaxDate() {
@@ -48,8 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         val maxDay = manipulateDate(year, month, day)
         val result = toMilliseconds(maxDay)
-        calendarView.maxDate = result.time //최대 날짜 선택
-
+        calendarView.maxDate = result.time //최대 날짜 설정, 최대날짜 까지 선택가능
     }
 
  /**
