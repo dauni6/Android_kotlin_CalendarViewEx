@@ -2,6 +2,7 @@ package com.dontsu.android_kotlin_calendarviewex
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -15,9 +16,12 @@ class MainActivity : AppCompatActivity() {
 
         setMinDate() //최소날짜
 
-        getToday()
-
         setMaxDate() //최대날짜
+
+
+        calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            Toast.makeText(this, "선택날짜 : $year 년 ${month + 1} 월 $dayOfMonth 일", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun getToday() {
