@@ -4,7 +4,6 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -19,11 +18,11 @@ class MainActivity : AppCompatActivity() {
 
         setMaxDate() //최대날짜
         
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
                 Toast.makeText(this, "선택날짜 : $year 년 ${month + 1} 월 $dayOfMonth 일", Toast.LENGTH_SHORT).show()
             }
-        }*/
+        }
     }
 
     /*private fun getToday() {
@@ -43,8 +42,8 @@ class MainActivity : AppCompatActivity() {
     }*/
 
     private fun setMinDate() {
-        calendarView.state().edit().setMinimumDate(CalendarDay.from(2020, 5, 31)).commit()//오늘날짜포함 이후로 선택가능, 최소날짜 Milliseconds 단위로만 설정가능함
-}
+        calendarView.minDate = Date().time //오늘날짜포함 이후로 선택가능, 최소날짜 Milliseconds 단위로만 설정가능함
+    }
 
     private fun setMaxDate() {
         //현재 년, 월, 일
@@ -54,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         val maxDay = manipulateDate(year, month, day) //최대 60일 이후까지만 선택 가능하도록 날짜조정
         val result = toMilliseconds(maxDay)
-        calendarView.state().edit().setMaximumDate(CalendarDay.from(2020, 7, 28)).commit() //최대 날짜 설정, 최대날짜 까지 선택가능
+        calendarView.maxDate = result.time //최대 날짜 설정, 최대날짜 까지 선택가능
     }
 
     private fun manipulateDate(year: Int, month: Int, day: Int): String {
