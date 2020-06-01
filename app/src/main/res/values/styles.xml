@@ -21,4 +21,10 @@
         <item name="android:background">@drawable/item_add_round_button</item>
     </style>
 
+    <!-- 예약정보 일자/시간 -->
+    <style name="StandardTimeButton">
+        <item name="android:textColor">@color/light_blue</item>
+        <item name="android:background">@drawable/time_round_button</item>
+    </style>
+
 </resources>

@@ -26,50 +26,55 @@
                 android:id="@+id/selectedInfoLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/calendarView"
                 android:layout_above="@+id/buttonLayout"
+                android:layout_below="@+id/calendarView"
                 android:orientation="vertical">
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_centerInParent="true"
-                    android:background="@color/gray"/>
+                    android:background="@color/gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_centerInParent="true"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:background="@color/light_gray"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     android:padding="10dp">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="시작일"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <Button
                         android:id="@+id/startDay"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="18dp"
-                        android:text="20.06.01" />
+                        android:layout_width="30dp"
+                        android:layout_height="25dp"
+                        android:layout_weight="1"
+                        android:text="20.06.01"
+                        style="@style/StandardTimeButton"/>
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="18dp"
+                        android:layout_weight="1"
                         android:text="시간"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <Button
                         android:id="@+id/startTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="30dp"
+                        android:layout_height="25dp"
+                        android:layout_weight="1"
                         android:text="12:30"
-                        android:layout_marginLeft="18dp" />
+                        style="@style/StandardTimeButton"/>
 
                 </LinearLayout>
 
@@ -77,55 +82,62 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_centerInParent="true"
-                    android:background="@color/gray"/>
+                    android:background="@color/gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@color/light_gray"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="10dp"
-                    android:background="@color/light_gray">
+                    android:padding="10dp">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="종료일"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <Button
                         android:id="@+id/endDay"
-                        android:layout_width="wrap_content"
+                        android:layout_width="30dp"
+                        android:layout_weight="1"
+                        android:layout_height="25dp"
+                        android:text="20.06.05"
+                        style="@style/StandardTimeButton"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="18dp"
-                        android:text="20.06.05" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="시간"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="18dp"/>
+                        android:textStyle="bold" />
 
-                    <TextView
+                    <Button
                         android:id="@+id/endTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="30dp"
+                        android:layout_weight="1"
+                        android:layout_height="25dp"
                         android:text="12:30"
-                        android:layout_marginLeft="18dp" />
+                        style="@style/StandardTimeButton"/>
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_centerInParent="true"
-                    android:background="@color/gray"/>
+                    android:background="@color/gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="10dp"
-                    android:background="@color/lighter_gray">
+                    android:padding="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -136,16 +148,16 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="뽀로로 인형"
-                        android:layout_marginLeft="18dp" />
+                        android:layout_marginLeft="18dp"
+                        android:text="뽀로로 인형" />
 
                     <Button
+                        style="@style/StandardItemAddButton"
                         android:layout_width="wrap_content"
                         android:layout_height="25dp"
-                        android:text="추가하기 + "
                         android:layout_marginLeft="18dp"
                         android:gravity="center"
-                        style="@style/StandardItemAddButton"/>
+                        android:text="추가하기 + " />
 
                 </LinearLayout>
 
@@ -153,14 +165,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_centerInParent="true"
-                    android:background="@color/gray"/>
+                    android:background="@color/gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="10dp"
-                    android:background="@color/lighter_gray">
+                    android:padding="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -171,8 +184,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="중앙사거리 농협 앞"
-                        android:layout_marginLeft="18dp"/>
+                        android:layout_marginLeft="18dp"
+                        android:text="중앙사거리 농협 앞" />
 
                 </LinearLayout>
 
@@ -182,10 +195,10 @@
                 android:id="@+id/buttonLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_centerVertical="true"
                 android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:layout_alignParentBottom="true">
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/reservationButton"
@@ -194,7 +207,8 @@
                     android:layout_weight="1"
                     android:background="@color/purple"
                     android:text="예약하기"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/cancellationButton"
