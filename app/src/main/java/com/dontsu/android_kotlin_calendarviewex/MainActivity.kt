@@ -1,28 +1,101 @@
 package com.dontsu.android_kotlin_calendarviewex
 
+import android.app.TimePickerDialog
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TimePicker
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.min
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var mTimePickerDialog: TimePickerDialog
+    private var startOrEndDayFlag = 0
+    private var startOrEndTimeFlag = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        
+        
+        //시간설정
+        val listener = TimePickerDialog.OnTimeSetListener { view, _hourOfDay, _minute ->
+            var hour = ""
+            var minute = ""
+            hour = if (_hourOfDay < 10) {
+                "0$_hourOfDay"
+            } else {
+                "$_hourOfDay"
+            }
+            minute = if (_minute < 10) {
+                "0$_minute"
+            } else {
+                "$_minute"
+            }
+            if (startOrEndTimeFlag == 0) {
+                startTime.text = "$hour : $minute"
+            } else {
+                endTime.text =  "$hour : $minute"
+            }
+        }
+
+        @Suppress("DEPRECATION")
+        mTimePickerDialog = TimePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, listener, 12, 30, true)
+        mTimePickerDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
         setMinDate() //최소날짜
 
         setMaxDate() //최대날짜
         
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
-                Toast.makeText(this, "선택날짜 : $year 년 ${month + 1} 월 $dayOfMonth 일", Toast.LENGTH_SHORT).show()
+            calendarView.setOnDateChangeListener { view, year, _month, _dayOfMonth ->
+                var month = ""
+                var day = ""
+                month = if (_month < 10) {
+                     "0$_month"
+                } else {
+                     "$_month"
+                }
+                day = if (_dayOfMonth < 10) {
+                    "0$_dayOfMonth"
+                } else {
+                    "$_dayOfMonth"
+                }
+
+                if (startOrEndDayFlag == 0) {
+                    startDay.text = "$year.$month.$day"
+                } else {
+                    endDay.text = "$year.$month.$day"
+                }
+                Toast.makeText(this, "선택날짜 : $year 년 ${_month + 1} 월 $_dayOfMonth 일", Toast.LENGTH_SHORT).show()
             }
         }
+
+        startDay.setOnClickListener {
+            startOrEndDayFlag = 0
+        }
+
+        endDay.setOnClickListener {
+            startOrEndDayFlag = 1
+        }
+
+        startTime.setOnClickListener {
+            startOrEndTimeFlag = 0
+            mTimePickerDialog.setTitle("시작시간")
+            mTimePickerDialog.show()
+        }
+
+        endTime.setOnClickListener {
+            startOrEndTimeFlag = 1
+            mTimePickerDialog.setTitle("종료시간")
+            mTimePickerDialog.show()
+        }
+
     }
 
     /*private fun getToday() {
