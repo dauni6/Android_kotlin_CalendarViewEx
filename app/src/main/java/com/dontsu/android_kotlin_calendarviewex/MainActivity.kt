@@ -18,12 +18,34 @@ class MainActivity : AppCompatActivity() {
     private var startOrEndDayFlag = 0
     private var startOrEndTimeFlag = 0
 
+    //현재 년, 월, 일
+    private val year = Calendar.getInstance().get(Calendar.YEAR)
+    private val month = Calendar.getInstance().get(Calendar.MONTH)
+    private val day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        
-        
-        //시간설정
+
+        var initMonth = ""
+        var initDay = ""
+        initMonth = if (month + 1 < 10) {
+            val now = month + 1
+            "0$now"
+        } else {
+            val now = month + 1
+            "$now"
+        }
+        initDay = if (day < 10) {
+            "0$day"
+        } else {
+            "$day"
+        }
+
+        startDay.text = "$year.$initMonth.$initDay"
+
+
+        //타임픽커 시간설정
         val listener = TimePickerDialog.OnTimeSetListener { view, _hourOfDay, _minute ->
             var hour = ""
             var minute = ""
@@ -56,10 +78,12 @@ class MainActivity : AppCompatActivity() {
             calendarView.setOnDateChangeListener { view, year, _month, _dayOfMonth ->
                 var month = ""
                 var day = ""
-                month = if (_month < 10) {
-                     "0$_month"
+                month = if (_month + 1 < 10) {
+                    val now = _month + 1
+                     "0$now"
                 } else {
-                     "$_month"
+                    val now = _month + 1
+                     "$now"
                 }
                 day = if (_dayOfMonth < 10) {
                     "0$_dayOfMonth"
@@ -119,17 +143,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setMaxDate() {
-        //현재 년, 월, 일
-        val year = Calendar.getInstance().get(Calendar.YEAR)
-        val month = Calendar.getInstance().get(Calendar.MONTH)
-        val day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
 
-        val maxDay = manipulateDate(year, month, day) //최대 60일 이후까지만 선택 가능하도록 날짜조정
+        val maxDay = manipulateDate() //최대 60일 이후까지만 선택 가능하도록 날짜조정
         val result = toMilliseconds(maxDay)
         calendarView.maxDate = result.time //최대 날짜 설정, 최대날짜 까지 선택가능
     }
 
-    private fun manipulateDate(year: Int, month: Int, day: Int): String {
+    private fun manipulateDate(): String {
 
         var presentDay = day
         var presentMonth = month + 1
